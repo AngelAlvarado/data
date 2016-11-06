@@ -1,0 +1,15 @@
+@startuml
+UserA -> PayMo: Make payment to UserB
+activate PayMo
+PayMo -> PayMo: Has ever been a transaction \n between userA and userB? \n Return if false
+PayMo -> PayMo: Does UserA share connections with UserB?
+PayMo -> PayMo: Has UserA ever make a transaction with common connections (e.g. UserC)? (2nd degree conn.)
+PayMo -> PayMo: Has UserB ever make a transaction with common connections (e.g. UserC)? (2nd degree conn.)
+PayMo -> PayMo: Does UserC share common connections with UserA (e.g. UserD)?
+PayMo -> PayMo: Has UserC ever make a transaction with common connections (e.g. UserD)? (3rd degree conn.)
+PayMo -> PayMo: Has UserD ever make a transaction with common connections (e.g. UserE)? (4th degree conn.)
+
+PayMo --> UserA: Notify UserA: \n "Unverified: this user is not in your Network..."
+deactivate PayMo
+PayMo --> UserB: Proceed with payment
+@enduml

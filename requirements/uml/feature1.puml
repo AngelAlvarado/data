@@ -1,0 +1,9 @@
+@startuml
+UserA -> PayMo: Make payment to UserB
+activate PayMo
+PayMo -> PayMo: Has ever been a transaction \n between userA and userB?
+PayMo --> PayMo: Write result to file \n paymo_output/feature1.txt
+PayMo --> UserA: Notify UserA: \n "Unverified: You've never..."
+deactivate PayMo
+PayMo --> UserB: Proceed with payment
+@enduml

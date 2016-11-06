@@ -1,0 +1,6 @@
+.idea/
+jupyter/
+insight_testsuite/
+paymo_input/batch_payment.csv
+paymo_input/stream_payment.csv
+paymo_input/batch_payment_cleaned.csv

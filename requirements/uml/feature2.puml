@@ -1,0 +1,11 @@
+@startuml
+UserA -> PayMo: Make payment to UserB
+activate PayMo
+PayMo -> PayMo: Has ever been a transaction \n between userA and userB?
+PayMo -> PayMo: Does UserA share connections with UserB?
+PayMo -> PayMo: Has UserA ever make a transaction with common connections (e.g. UserC)?
+PayMo -> PayMo: Has UserB ever make a transaction with common connections (e.g. UserC)?
+PayMo --> UserA: Notify UserA: \n "Unverified: this is not a friend..."
+deactivate PayMo
+PayMo --> UserB: Proceed with payment
+@enduml

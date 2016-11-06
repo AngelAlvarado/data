@@ -12,6 +12,8 @@
 @todo create a docker container to provide python 3.5 , pip, pandas, numexpr
 @warning this is a Beta version. Dependencies/Requirements could change and wil be documented in this README file.
 
+From root folder run as: $ ./run.sh ./paymo_input/batch_payment.csv ./paymo_input/stream_payment.csv ./paymo_output/output1.txt ./paymo_output/output2.txt ./paymo_output/output3.txt
+
 #### Requirements
 
 ```

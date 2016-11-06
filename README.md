@@ -124,13 +124,13 @@ Basic UML sequence diagrams created via PlantUML in order to make them version-a
 
 #### Goal in my code
 
-Till November 6th 2016 (Friday night and Saturday night)
+Till November 6th 2016 (Friday night and Saturday night - Sun early morning)
 
 My implementation is based on Python 3. This solution requires pandas and numexpr libraries.
 
-After trying implementing this as with dictionaries and run out of memory I decided to use pandas dataframes and numexpr.
+After trying implementing this with dictionaries and run out of memory I decided to use pandas dataframes and numexpr.
 
-The goal is create a matrix with this form (@see sketch [3](./requirements/sketches/sketch3_20161106_032115.jpg) top-left corner).
+The goal is to create a matrix with the following structure: (@see sketch [3](./requirements/sketches/sketch3_20161106_032115.jpg) top-left corner).
 
             UserA   UserB  UserC
     UserA    1       0      0
@@ -148,11 +148,11 @@ Probably I will need a matrix for each generation (@see sketch [3](./requirement
 
 While this does seems like a simple challenge at the begging I struggled and had to go over and over through my ideas, here some important sketches.
 
-<img src="./requirements/uml/sketch1_20161106_032110.jpg" width="500">
+<img src="./requirements/sketches/sketch1_20161106_032036.jpg" width="500">
 
-<img src="./requirements/uml/sketch2_20161106_032110.jpg" width="500">
+<img src="./requirements/sketches/sketch2_20161106_032110.jpg" width="500">
 
-<img src="./requirements/uml/sketch3_20161106_032110.jpg" width="500">
+<img src="./requirements/sketches/sketch3_20161106_032115.jpg" width="500">
 
 ##Testing
 

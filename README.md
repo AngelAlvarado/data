@@ -187,6 +187,8 @@ While this does seems like a simple challenge at the begging I struggled and had
 
 * *Maybe I need to clean id1 and id2 -> clean it from commas?*
 
+* *There are Users with id 0 which I guess is fine*
+
 ## References
 
 ## Feature ideas

@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 import csv
+import numpy as np
 import time
 
 
@@ -23,14 +24,16 @@ def main():
     # preparing network-matrices
 
     # Initialize matrix size
-    dataframeunique = pd.read_csv(sys.argv[1], sep=',',
-                            header=0, skipinitialspace=True, error_bad_lines=False, index_col=0)
-    w = dataframeunique.groupby(dataframeunique.index).first().count()
-    Matrix = [[0 for x in range(w)] for y in range(w)]
-
-    # Maybe not needed and same dataframe can be used
     dataframe = pd.read_csv(sys.argv[1], sep=',',
                             header=0, skipinitialspace=True, error_bad_lines=False, index_col=0)
+    w = dataframe.groupby(dataframe.index).first().count()[0]
+    # Matrix = [[0 for x in range(w)] for y in range(w)] #this is def. not a good idea. It takes so much time to initialize an array.
+    dictionary = {}
+    # Matrix = {'one': pd.Series(0, dataframe.index.values)}
+    # Test = {row.SITE_NAME: row.LOOKUP_TABLE for row in cursor}
+    # Maybe not needed and same dataframe can be used
+    # dataframe = pd.read_csv(sys.argv[1], sep=',',
+    #                         header=0, skipinitialspace=True, error_bad_lines=False, index_col=0)
 
     # @todo generate matrix before start processing
     new_payments_file = open(sys.argv[2], 'rt')

@@ -1,8 +1,1 @@
-[Sat Nov  5 22:37:16 EDT 2016] Starting cleaning batch data..
-[Sat Nov  5 22:37:31 EDT 2016] Finished cleaning batch data..
-[Sun Nov  6 05:06:09 EST 2016] Starting cleaning batch data..
-[Sun Nov  6 05:07:36 EST 2016] Starting cleaning batch data..
-[Sun Nov  6 05:10:45 EST 2016] Starting cleaning batch data..
-[Sun Nov  6 05:11:01 EST 2016] Finished cleaning batch data..
-[Sun Nov  6 05:14:48 EST 2016] Starting cleaning batch data..
-[Sun Nov  6 05:15:16 EST 2016] Finished cleaning batch data..
+

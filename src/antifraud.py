@@ -14,45 +14,53 @@ def verify_all_features(df,feature_one,feature_two,feature_three):
 def main():
     """
     Reads sanitized batch file into a dataframe
-    The general idea is generate a big matrix and the analyze from it each new record
+    The general idea is generate analyze each relationship from the incoming payment then create a matrix
+        which will generate a matrix of size MxM to look up relationships even faster.
     *re-compute matrix when there are new users.*
     args ./paymo_input/batch_payment_cleaned.csv ./paymo_input/stream_payment.csv ./paymo_output/output1.txt ./paymo_output/output2.txt ./paymo_output/output3.txt
     """
     feature_one = open(sys.argv[3], 'w')
     feature_two = open(sys.argv[4], 'w')
     feature_three = open(sys.argv[5], 'w')
-    # preparing network-matrices
-
-    # Initialize matrix size
+    # Reads initial file
     dataframe = pd.read_csv(sys.argv[1], sep=',',
                             header=0, skipinitialspace=True, error_bad_lines=False, index_col=0)
-    w = dataframe.groupby(dataframe.index).first().count()[0]
-    # Matrix = [[0 for x in range(w)] for y in range(w)] #this is def. not a good idea. It takes so much time to initialize an array.
-    dictionary = {}
-    # Matrix = {'one': pd.Series(0, dataframe.index.values)}
-    # Test = {row.SITE_NAME: row.LOOKUP_TABLE for row in cursor}
-    # Maybe not needed and same dataframe can be used
-    # dataframe = pd.read_csv(sys.argv[1], sep=',',
-    #                         header=0, skipinitialspace=True, error_bad_lines=False, index_col=0)
 
-    # @todo generate matrix before start processing
+    # @todo generate matrix of size of size MxM before incoming payments.
+    # @todo do not calculate 2nd, 3rd and 4th generations using a for loop. It won't work.
+    #    An optimal solution will be to use an adjacency Matrix theorem: https://people.math.osu.edu/husen.1/teaching/sp2003/571/graphs.pdf.
+    #    Theorem: If A is the adjacency matrix of a graph or digraph G with vertices {v1, . . . vn}, then the i, j entry of Ak is the number of paths of length k from vi to vj .
     new_payments_file = open(sys.argv[2], 'rt')
-
+    # Analyze relationships of incoming payments against data in the system.
     try:
         reader = csv.reader(new_payments_file)
         next(reader, None)
         for payment in reader:
-            return
-            ## below code will be deleted and Matrix will be use to calculate generation
-            first_generation = str(
-                dataframe.ix[int(payment[1].replace(" ", ""))].query('id2==' + payment[2].replace(" ", "")).size > 0)
-            if first_generation:
+            first_generation_around = False
+            first_generation = False
+            index_payment = int(payment[1].replace(" ", ""))
+            try:
+                first_generation = str(
+                    dataframe.ix[index_payment].query(
+                        'id2==' + payment[2].replace(" ", "")).size > 0)
+            except KeyError:
+                try:
+                    first_generation_around = int(payment[2].replace(" ", "")) in (
+                        dataframe['id2'] == index_payment)
+                except KeyError:
+                    # @todo add new relationship to matrix.
+                    print("Check next generation")
+
+            if first_generation or first_generation_around:
                 feature_one.write('trusted\n')
+                feature_two.write('trusted\n')
+                feature_three.write('trusted\n')
                 # Next payment request.
             else:
-                feature_one.write('unverified\n')
-                # testing second generation
-            #time.sleep(5)
+                # Gather friends of friends (second generation)
+                test = dataframe.ix[index_payment]
+                # At this point it seems not the best idea to keep iterating. I'd be really slow for large datasets.
+                # For example: Using the 3.8 M records CSV file and trying to create a matrix out of it kills
     finally:
         new_payments_file.close()
 

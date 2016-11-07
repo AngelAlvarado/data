@@ -1,15 +1,6 @@
 import pandas as pd
 import sys
 import csv
-import numpy as np
-import time
-
-
-def verify_all_features(df,feature_one,feature_two,feature_three):
-    for x in df.values:
-        feature_one.write('unverified\n')
-        feature_two.write('unverified\n')
-        feature_three.write('trusted\n')
 
 def main():
     """
@@ -27,7 +18,7 @@ def main():
                             header=0, skipinitialspace=True, error_bad_lines=False, index_col=0)
 
     # @todo generate matrix of size of size MxM before incoming payments.
-    # @todo do not calculate 2nd, 3rd and 4th generations using a for loop. It won't work.
+    # @todo do not calculate 2nd, 3rd and 4th-degree friends using a for loop. It won't work.
     #    An optimal solution will be to use an adjacency Matrix theorem: https://people.math.osu.edu/husen.1/teaching/sp2003/571/graphs.pdf.
     #    Theorem: If A is the adjacency matrix of a graph or digraph G with vertices {v1, . . . vn}, then the i, j entry of Ak is the number of paths of length k from vi to vj .
     new_payments_file = open(sys.argv[2], 'rt')

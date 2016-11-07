@@ -14,55 +14,16 @@
 
 From root folder run as: $ ./run.sh ./paymo_input/batch_payment.csv ./paymo_input/stream_payment.csv ./paymo_output/output1.txt ./paymo_output/output2.txt ./paymo_output/output3.txt
 
+Or from ./insight_testsuite execute ./run_test.sh
+
 #### Requirements
 
 ```
-INSTALLED VERSIONS
 ------------------
-commit: None
 python: 3.5.1.final.0
-python-bits: 64
-OS: Darwin
-OS-release: 15.6.0
-machine: x86_64
-processor: i386
-byteorder: little
-LC_ALL: None
-LANG: None
-
 pandas: 0.18.0
-nose: 1.3.7
-pip: 8.1.0
-setuptools: 20.2.2
-Cython: 0.23.4
-numpy: 1.10.4
-scipy: 0.17.0
-statsmodels: 0.6.1
-xarray: None
-IPython: 4.0.1
-sphinx: 1.3.1
-patsy: 0.4.0
-dateutil: 2.5.0
-pytz: 2016.1
-blosc: None
-bottleneck: 1.0.0
-tables: 3.2.2
 numexpr: 2.4.4
-matplotlib: 1.5.1
-openpyxl: 2.2.6
-xlrd: 0.9.4
-xlwt: 1.0.0
-xlsxwriter: 0.7.7
-lxml: 3.4.4
-bs4: 4.4.1
-html5lib: None
-httplib2: None
-apiclient: None
-sqlalchemy: 1.0.9
-pymysql: None
-psycopg2: None
-jinja2: 2.8
-boto: 2.38.0
+
 ```
 
 #### Log
@@ -76,7 +37,7 @@ My Notes about requirements:
 ** id1: ID of user making the payment
 ** id2: ID of user receiving the payment
 
-* Verify stream_payment.csv and batch_payment.csv have content. Using $cat file | more. Yes it has emojis, lol.
+* Verify stream_payment.csv and batch_payment.csv have content. Using: $ cat file | more. Yes it has emojis, lol.
 
 * Input: Not need to connect to an API. Datasets are inside paymo_input directory.
 
@@ -122,29 +83,33 @@ Basic UML sequence diagrams created via PlantUML in order to make them version-a
 
 #### Clean (Sanitize) batch data 
 
-* run.sh will take care of cleaning the firt batch of data (batch_payment.csv). I'll need only id1 and id2 so far.
+* run.sh will take care of cleaning the first batch of data (batch_payment.csv). I'll need only id1 and id2 so far.
 
 #### Goal in my code
 
-Till November 6th 2016 (Friday night and Saturday night - Sun early morning)
-
 My implementation is based on Python 3. This solution requires pandas and numexpr libraries.
 
-After trying implementing this with dictionaries and run out of memory I decided to use pandas dataframes and numexpr.
+The dataframes and numexpr solution is not optimal to calculate 2nd, 3rd and 4th-degree friends. I'll be very slow.
+An optimal solution will be to use an adjacency Matrix theorem: https://people.math.osu.edu/husen.1/teaching/sp2003/571/graphs.pdf.
 
 The goal is to create a matrix with the following structure: (@see sketch [3](./requirements/sketches/sketch3_20161106_032115.jpg) top-left corner).
 
             UserA   UserB  UserC
-    UserA    1       0      0
-    UserB    1       1      1
+    UserA    0       0      0
+    UserB    1       0      1
     UserC    1       0      0
 
-Probably I will need a matrix for each generation (@see sketch [3](./requirements/sketches/sketch1_20161106_032036.jpg top-right corner).
+Then multiple this matrix by itself up to 3 times to generate a matrix with 4th-degree friends. For example: 
 
-* Tho, using dataframes will be fast to generate a similar matrix (see above example) when the program first load, the problem I'm finding so far is that in order to generate the matrix(ces) for a second, third, etc times it might take more time that expected. 
+            UserA   UserB  UserC
+    UserA    0       2      0
+    UserB    1       0      3
+    UserC    1       0      2
+    
+(@see sketch [3](./requirements/sketches/sketch1_20161106_032036.jpg top-right corner)).
+
 * **Warning:** If there's a new payment with new users I'll need to regenerate the matrices and might take a while. 
-* @todo check graphs documentation
- 
+* An optimal solution will be to use some graph theory and linear algebra 
 
 ####  Sketches
 
@@ -158,6 +123,7 @@ While this does seems like a simple challenge at the begging I struggled and had
 
 ##Testing
 
+Execute ./insight_testsuite/run_tests.sh
 
 #Personal notes
 
@@ -183,7 +149,7 @@ While this does seems like a simple challenge at the begging I struggled and had
 
 * *What if while in a transaction the process is exited/terminated*
 
-* *I was thinking on using dictionaries but decided to use dataframes very heavily: http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html , https://github.com/pandas-dev/pandas/issues/12008*
+* *I was thinking on using dictionaries but decided to use dataframes very heavily*
 
 * *Maybe I need to clean id1 and id2 -> clean it from commas?*
 

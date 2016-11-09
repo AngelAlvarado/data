@@ -37,5 +37,5 @@ echo "[$(date)] Finished cleaning batch data.." >> ./results.txt
 echo $5
 echo "Generating Network and Setting up application to process new payments"
 #@todo pass correct arguments
-/Users/Angel/anaconda/bin/python ./src/antifraud.py $batch $stream $output1 $output3 $output3
+/Users/Angel/anaconda/bin/python ./src/antifraud.py $batch $stream $output1 $output2 $output3
 

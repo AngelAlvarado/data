@@ -4,7 +4,6 @@
 1. [My notes about Requirements](README.md#understanding-requirements)
 2. [Basic UML of features](README.md#basic-uml)
 5. [Details of implementation so far](README.md#details-of-my-own-implementation)
-6. [Sketches](README.md#sketches)
 7. [Personal Notes](README.md#personal-notes)
 
 ## How to use
@@ -21,8 +20,6 @@ Or from ./insight_testsuite execute ./run_test.sh
 ```
 ------------------
 python: 3.5.1.final.0
-pandas: 0.18.0
-numexpr: 2.4.4
 
 ```
 
@@ -87,45 +84,21 @@ Basic UML sequence diagrams created via PlantUML in order to make them version-a
 
 #### Goal in my code
 
-My implementation is based on Python 3. This solution requires pandas and numexpr libraries.
+On early commits of this program I was using the correct approach to solve the problem. Which were very very slow. 
+I ended up refreshing my knowledge on lists, stacks, queues, trees and graphs.
 
-The dataframes and numexpr solution is not optimal to calculate 2nd, 3rd and 4th-degree friends. I'll be very slow.
-An optimal solution will be to use an adjacency Matrix theorem: https://people.math.osu.edu/husen.1/teaching/sp2003/571/graphs.pdf.
+A graph (which was very obvious I had to use in the first place :/) will let me search for relationships at nth-degree 
+with the best performance. 
 
-The goal is to create a matrix with the following structure: (@see sketch [3](./requirements/sketches/sketch3_20161106_032115.jpg) top-left corner).
-
-            UserA   UserB  UserC
-    UserA    0       0      0
-    UserB    1       0      1
-    UserC    1       0      0
-
-Then multiple this matrix by itself up to 3 times to generate a matrix with 4th-degree friends. For example: 
-
-            UserA   UserB  UserC
-    UserA    0       2      0
-    UserB    1       0      3
-    UserC    1       0      2
-    
-(@see sketch [3](./requirements/sketches/sketch1_20161106_032036.jpg top-right corner)).
-
-* **Warning:** If there's a new payment with new users I'll need to regenerate the matrices and might take a while. 
-* An optimal solution will be to use some graph theory and linear algebra 
-
-####  Sketches
-
-While this does seems like a simple challenge at the begging I struggled and had to go over and over through my ideas, here some important sketches.
-
-<img src="./requirements/sketches/sketch1_20161106_032036.jpg" width="500">
-
-<img src="./requirements/sketches/sketch2_20161106_032110.jpg" width="500">
-
-<img src="./requirements/sketches/sketch3_20161106_032115.jpg" width="500">
-
+The use of graphs and an algorithm like: [Dijstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm). One of my thoughts was to 
+use a python library [Network](https://networkx.github.io/index.html). But, instead I started implementing my graph and applying 
+Dijkstra since it's what it's gonna be evaluated the most. 
+ 
 ##Testing
 
 Execute ./insight_testsuite/run_tests.sh
 
-#Personal notes
+## Personal notes
 
 * *Notify when not a friend of a friend only? or when friend of a friend hasn’t make transactions?Re: Only if there were transactions before.*
 
@@ -158,3 +131,4 @@ Execute ./insight_testsuite/run_tests.sh
 ## References
 
 ## Feature ideas
+

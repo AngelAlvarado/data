@@ -1,15 +1,13 @@
 # Table of Contents
 
 0. [How to use this code](README.md#how-to-use)
-1. [My notes about Requirements](README.md#understanding-requirements)
-2. [Basic UML of features](README.md#basic-uml)
-5. [Details of implementation so far](README.md#details-of-my-own-implementation)
-7. [Personal Notes](README.md#personal-notes)
+1. [Details of implementation so far](README.md#details-of-my-own-implementation)
+2. [My notes about Requirements](README.md#understanding-requirements)
+3. [Personal Notes](README.md#personal-notes)
 
 ## How to use
 
-@todo create a docker container to provide python 3.5 , pip, pandas, numexpr
-@warning this is a Beta version. Dependencies/Requirements could change and wil be documented in this README file.
+@todo create a docker container to provide python 3.5 , pip, pandas.
 
 From root folder run as: $ ./run.sh ./paymo_input/batch_payment.csv ./paymo_input/stream_payment.csv ./paymo_output/output1.txt ./paymo_output/output2.txt ./paymo_output/output3.txt
 
@@ -26,6 +24,23 @@ python: 3.5.1.final.0
 #### Log
 
 @see ./results.txt file for events while analyzing payments or/and preparing batch data.
+
+##Details of my own implementation
+
+#### Clean (Sanitize) batch data 
+
+* run.sh will take care of cleaning the first batch of data (batch_payment.csv). I'll need only id1 and id2 so far.
+
+#### Goal in my code
+
+On early commits and master branch of this program I was using the incorrect approach to solve the problem. Which was very very slow. 
+I ended up refreshing my knowledge on lists, stacks, queues, trees and graphs. So far only feature 1 is solved.
+
+A graph (which was very obvious I had to use in the first place :/) will let me search for relationships at nth-degree 
+with the best performance. 
+
+The best case scenario is the use of graphs and an algorithm like: [Dijstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm). One of my thoughts was to 
+use a python library [Network](https://networkx.github.io/index.html). But, instead I started implementing my graph and applying grapsh since it's what it's going be evaluated the most. 
 
 ## Understanding requirements
 My Notes about requirements:
@@ -72,33 +87,16 @@ My Notes about requirements:
 <img src="./requirements/fourth-degree-friends2.png" width="600">
 <img src="./requirements/uml/feature3.png" width="500">
 
-##Basic UML
+###Basic UML
 Basic UML sequence diagrams created via PlantUML in order to make them version-able.
 @see ./requirements/uml/*.puml
-
-##Details of my own implementation
-
-#### Clean (Sanitize) batch data 
-
-* run.sh will take care of cleaning the first batch of data (batch_payment.csv). I'll need only id1 and id2 so far.
-
-#### Goal in my code
-
-On early commits of this program I was using the correct approach to solve the problem. Which were very very slow. 
-I ended up refreshing my knowledge on lists, stacks, queues, trees and graphs.
-
-A graph (which was very obvious I had to use in the first place :/) will let me search for relationships at nth-degree 
-with the best performance. 
-
-The use of graphs and an algorithm like: [Dijstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm). One of my thoughts was to 
-use a python library [Network](https://networkx.github.io/index.html). But, instead I started implementing my graph and applying 
-Dijkstra since it's what it's gonna be evaluated the most. 
+ 
  
 ##Testing
 
 Execute ./insight_testsuite/run_tests.sh
 
-## Personal notes
+##Personal notes
 
 * *Notify when not a friend of a friend only? or when friend of a friend hasn’t make transactions?Re: Only if there were transactions before.*
 

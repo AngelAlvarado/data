@@ -34,13 +34,15 @@ python: 3.5.1.final.0
 #### Goal in my code
 
 On early commits and master branch of this program I was using the incorrect approach to solve the problem. Which was very very slow. 
-I ended up refreshing my knowledge on lists, stacks, queues, trees and graphs. So far only feature 1 is solved.
+I ended up refreshing my knowledge on lists, stacks, queues, trees and graphs. So far only feature 1 is solved
 
 A graph (which was very obvious I had to use in the first place :/) will let me search for relationships at nth-degree 
 with the best performance. 
 
 The best case scenario is the use of graphs and an algorithm like: [Dijstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm). One of my thoughts was to 
 use a python library [Network](https://networkx.github.io/index.html). But, instead I started implementing my graph and applying grapsh since it's what it's going be evaluated the most. 
+
+@todo add more test cases.
 
 ## Understanding requirements
 My Notes about requirements:

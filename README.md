@@ -13,14 +13,14 @@ Or from folder insight_testsuite execute: $ ./run_test.sh
 
 #### Requirements
 
-For released 1 (which includes logic for feature 1) use:
+For [released 1](https://github.com/AngelAlvarado/data/releases/tag/1) (which includes logic for feature 1) use: 
 ```
 ------------------
 python: 3.5.1.final.0
 pandas: 0.18.0
 
 ```
-For released 2 (which includes logic for feature 1, 2 and 3) use:
+For [released 2](https://github.com/AngelAlvarado/data/releases/tag/1.1) (which includes logic for feature 1, 2 and 3) use:
 
 ```
 ------------------

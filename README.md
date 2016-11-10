@@ -15,12 +15,20 @@ Or from ./insight_testsuite execute ./run_test.sh
 
 #### Requirements
 
+For released 1 (which includes logic for feature 1) use:
+```
+------------------
+python: 3.5.1.final.0
+pandas: 0.18.0
+
+```
+For released 2 (which includes logic for feature 1, 2 and 3) use:
+
 ```
 ------------------
 python: 3.5.1.final.0
 
 ```
-
 #### Log
 
 @see ./results.txt file for events while analyzing payments and/or preparing batch data.

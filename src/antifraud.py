@@ -5,7 +5,8 @@ import csv
 def main():
     """
     Reads sanitized batch file into a datafrme
-    The general idea is to use a graph and find the shortest path
+    The general idea is to use a graph and find the shortest path; For feature 1 the graph is not actually fully used.
+        because Pandas helps to figure out relationships.
     args ../paymo_input/batch_payment_cleaned.txt ../paymo_input/stream_payment.txt ../paymo_output/output1.txt ../paymo_output/output2.txt ../paymo_output/output3.txt
     """
     feature_one = open(sys.argv[3], 'w')
@@ -44,22 +45,19 @@ def build_network(index_user_who_pays,index_user_who_receives,datafrme):
     grafo = Graph()
     user_who_pays_vertex = Vertex(index_user_who_pays)
     user_who_receives_vertex = Vertex(index_user_who_receives)
-    is_relationship_via_network = False
-    is_relationship_via_batch = False
-
+    # if there's a relationship from left to right
     if int(datafrme[datafrme.id1 == index_user_who_pays].size) is not 0:
-        for index, row in datafrme[datafrme.id1 == index_user_who_pays].drop_duplicates('id2')['id2'].iteritems():
-            grafo.add_relationship(user_who_pays_vertex, Vertex(row))
-        if int(datafrme[datafrme.id1 == index_user_who_receives][datafrme.id2 == index_user_who_pays].size) is not 0:
-            is_relationship_via_batch = True
-            # this means there is a relationship and prolly I should just return it.
-            grafo.add_relationship(user_who_pays_vertex, Vertex(index_user_who_receives)) # just to test tree.
+        for index, who_has_payed in datafrme[datafrme.id1 == index_user_who_pays].drop_duplicates('id2')['id2'].iteritems():
+            grafo.add_relationship(user_who_pays_vertex, Vertex(who_has_payed))
+            # while adding check if there's a relationship form right to left
+            if int(datafrme[datafrme.id1 == index_user_who_receives][datafrme.id2 == index_user_who_pays].size) is not 0:
+                # this means there is a relationship and prolly I should just return it.
+                return True
         return grafo.build_path(user_who_pays_vertex, user_who_receives_vertex)
-    if is_relationship_via_batch is False:
-        if int(datafrme[datafrme.id1 == index_user_who_receives][datafrme.id2 == index_user_who_pays].size) is not 0:
-            # this means there is a relationship and prolly I should just return it.
-            grafo.add_relationship(user_who_pays_vertex, Vertex(index_user_who_receives))  # just to test tree.
-            return grafo.build_path(user_who_pays_vertex, user_who_receives_vertex)
+    # If there's no relationships from left to right;
+    # Check if there's relationship from rigth to left
+    elif int(datafrme[datafrme.id1 == index_user_who_receives][datafrme.id2 == index_user_who_pays].size) is not 0:
+        return True
     else:
         # Maybe relationship should be added to the original dataframe. So new payments takes it into consideartion.
         grafo.add_relationship(user_who_pays_vertex, user_who_pays_vertex)
@@ -87,9 +85,6 @@ class Vertex(object):
     def set_visited(self, status):
         self.visited = status
 
-    def __str__(self):
-        return str(self.id) + ' adjacent: ' + str([x.id for x in self.adjacent])
-
 
 class Graph(object):
     """Holds network based on the incoming payment info"""
@@ -113,13 +108,11 @@ class Graph(object):
     def build_path(self, origin, destination):
         """For now it takes care of feature 1"""
         origin.set_visited(True)
-        has_relationship = False
         for neighbor in origin.adjacent:
             if origin.adjacent[neighbor].visited is False:
                 if origin.adjacent[neighbor].get_id() == destination.get_id():
-                    has_relationship = True
-                    return has_relationship
-        return has_relationship
+                    return True
+        return False
 
 if __name__ == '__main__':
     main()

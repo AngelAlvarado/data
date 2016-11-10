@@ -6,7 +6,7 @@ def main():
     """
     Reads a sanitized batch file
     The general idea is to use a graph and find the shortest path
-    args ../paymo_input/batch_payment_cleaned.txt ../paymo_input/stream_payment.bk.txt ../paymo_output/output1.txt ../paymo_output/output2.txt ../paymo_output/output3.txt
+    args ../paymo_input/batch_payment_cleaned.txt ../paymo_input/stream_payment.txt ../paymo_output/output1.txt ../paymo_output/output2.txt ../paymo_output/output3.txt
     """
     feature_one = open(sys.argv[3], 'w')
     feature_two = open(sys.argv[4], 'w')
@@ -49,8 +49,8 @@ def build_network(network_data):
     """Return True or False whether the user has a relationship at nth-degree or not"""
     grafo = Graph()
     for row in network_data:
-        who_pays = row[0].replace(" ", "")
-        who_rec = row[1].replace(" ", "")
+        who_pays = row[0]
+        who_rec = row[1]
         grafo.add(who_pays)
         grafo.add(who_rec)
         grafo.add_relationship(grafo.relationships[who_pays], grafo.relationships[who_rec])

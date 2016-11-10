@@ -1,3 +1,0 @@
-
-[Wed Nov  9 06:05:07 EST 2016] Starting cleaning batch data..
-[Wed Nov  9 06:05:07 EST 2016] Finished cleaning batch data..

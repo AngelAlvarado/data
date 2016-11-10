@@ -7,20 +7,26 @@
 
 ## How to use
 
-@todo create a docker container to provide python 3.5 , pip, pandas.
+From root folder run as: $ ./run.sh 
 
-From root folder run as: $ ./run.sh ./paymo_input/batch_payment.csv ./paymo_input/stream_payment.csv ./paymo_output/output1.txt ./paymo_output/output2.txt ./paymo_output/output3.txt
-
-Or from ./insight_testsuite execute ./run_test.sh
+Or from folder insight_testsuite execute: $ ./run_test.sh
 
 #### Requirements
+
+For released 1 (which includes logic for feature 1) use:
+```
+------------------
+python: 3.5.1.final.0
+pandas: 0.18.0
+
+```
+For released 2 (which includes logic for feature 1, 2 and 3) use:
 
 ```
 ------------------
 python: 3.5.1.final.0
 
 ```
-
 #### Log
 
 @see ./results.txt file for events while analyzing payments and/or preparing batch data.
@@ -40,8 +46,6 @@ with the best performance.
 
 The best case scenario is the use of graphs and an algorithm like: [Dijstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm). One of my thoughts was to 
 use a python library [Network](https://networkx.github.io/index.html). But, instead I started implementing my graph and applying graphs since it's what it's going be evaluated the most. 
-
-@todo add more test cases.
 
 ## Understanding requirements
 My Notes about requirements:
@@ -127,7 +131,12 @@ Execute ./insight_testsuite/run_tests.sh
 
 * *There are users with id 0 which I guess is fine*
 
-## References
-
 ## Feature ideas
+
+
+## TODOS
+
+* Add more test cases.
+
+* Create a docker container to provide python 3.5 , pip, pandas, etc.
 

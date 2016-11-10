@@ -30,12 +30,10 @@ echo $batch_dataset_cleaned_filename
 echo "Using only columns with data important to me (id1 and id2)..."
 echo "id1,id2" > $batch_dataset_cleaned_filename
 awk 'BEGIN {FS=","} NR >= 2 {  gsub (" ", "", $2); gsub (" ", "", $3); print $2","$3}' $batch >> $batch_dataset_cleaned_filename
-
 echo "Finish cleaning batch data..."
 echo "[$(date)] Finished cleaning batch data.." >> ./results.txt
-
-echo $5
 echo "Generating Network and Setting up application to process new payments"
-#@todo pass correct arguments
-/Users/Angel/anaconda/bin/python ./src/antifraud.py $batch $stream $output1 $output2 $output3
+
+python ./src/antifraud.py $batch_dataset_cleaned_filename $stream $output1 $output2 $output3
+
 
